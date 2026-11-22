@@ -58,3 +58,18 @@ This is an actively evolving prototype. The sprite sheets are dedicated pixel-ar
 - Persistent player and world progression
 
 The project is an original zombie-survival game inspired by the atmosphere and survival tension of the genre.
+
+
+## Deploy to Vercel
+
+This repository is configured as a **static site**. The game runs directly in the browser; there is no Node.js build, package installation, or server runtime required.
+
+1. Push the repository to GitHub.
+2. In Vercel, choose **Add New → Project** and import `relaymann/projectapocalyptic`.
+3. Keep the project root set to the repository root.
+4. Use the **Other** framework preset. The repository's `vercel.json` sets the output directory to `.` (the repository root).
+5. Leave the build command empty, then deploy.
+
+Vercel will serve `index.html` at the project URL and publish the `assets/` directory alongside it. Future commits pushed to the connected `main` branch will trigger deployments automatically. You can also deploy from the Vercel dashboard after importing the project.
+
+The game currently stores progress in the browser's local storage, so saves are local to the browser/device and are not automatically shared between devices.
