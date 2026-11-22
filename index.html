@@ -225,10 +225,10 @@ function drawGround(){
 function drawTrees(){for(const t of trees){if(t.x<camera.x-35||t.x>camera.x+vw+35||t.y<camera.y-35||t.y>camera.y+vh+35)continue;ctx.fillStyle='#11180f55';ctx.beginPath();ctx.ellipse(t.x+8,t.y+14,t.r*.9,t.r*.32,0,0,Math.PI*2);ctx.fill();box(t.x-4,t.y+5,9,12,'#403a2b');const c=['#2d4932','#3a5438','#293f30','#46583a'][t.tone];box(t.x-t.r,t.y-t.r,t.r*2,t.r*1.55,c);box(t.x-t.r+4,t.y-t.r+3,t.r,5,'#506447');box(t.x+3,t.y-t.r+8,t.r-3,4,'#253d2c');if(t.kind===1)box(t.x-2,t.y-t.r-3,5,5,'#596b43')}}
 function drawBuildings(){for(const b of buildings){if(b.x>camera.x+vw||b.x+b.w<camera.x||b.y>camera.y+vh||b.y+b.h<camera.y)continue;
  const sunAngle=(clock/24)*Math.PI*2;ctx.fillStyle='#10170f66';ctx.fillRect(b.x+12+Math.cos(sunAngle)*15,b.y+17+Math.sin(sunAngle)*10,b.w,b.h);box(b.x+8,b.y+11,b.w,b.h,'#151a15');box(b.x-3,b.y+b.h-3,b.w+6,7,'#242b22');
- const wall=b.type==='clinic'?'#aaa996':b.type==='store'?'#806b50':b.type==='gas'?'#928366':b.type==='warehouse'?'#777665':'#77796b';
+ const wall=b.type==='clinic'?'#aaa996':b.type==='store'?'#806b50':b.type==='gas'?'#928366':b.type==='warehouse'?'#777665':'#77796b';const bPowered=objectPowered(b);
  box(b.x,b.y,b.w,b.h,wall);box(b.x+5,b.y+5,b.w-10,b.h-10,b.type==='clinic'?'#c2beaa':b.type==='store'?'#9a8768':'#918a75');
  box(b.x+8,b.y+8,b.w-16,5,'#5b594d');box(b.x+8,b.y+b.h-8,b.w-16,4,'#625e50');
- for(let wx=b.x+17;wx<b.x+b.w-12;wx+=37){box(wx,b.y+20,15,13,'#354d4b');box(wx+2,b.y+21,11,9,objectPowered(b)?'#d4b978':'#58716a');box(wx+7,b.y+20,2,13,'#b3a88a');box(wx,b.y+32,15,2,'#524f42')}
+ for(let wx=b.x+17;wx<b.x+b.w-12;wx+=37){box(wx,b.y+20,15,13,'#354d4b');box(wx+2,b.y+21,11,9,bPowered?'#d4b978':'#58716a');box(wx+7,b.y+20,2,13,'#b3a88a');box(wx,b.y+32,15,2,'#524f42')}
  box(b.door.x-9,b.y+b.h-20,18,20,'#40372d');box(b.door.x-6,b.y+b.h-17,12,17,'#554738');box(b.door.x+4,b.y+b.h-10,2,2,'#c0a66d');
  if(b.type==='clinic'){box(b.x+b.w/2-3,b.y+5,6,17,'#9e4e45');box(b.x+b.w/2-8,b.y+10,16,6,'#9e4e45')}
  if(b.type==='store'||b.type==='gas'){box(b.x+8,b.y-8,b.w-16,9,'#3d3b32');box(b.x+13,b.y-7,b.w-26,3,'#b2a27c')}
