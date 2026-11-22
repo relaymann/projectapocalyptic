@@ -4,7 +4,7 @@ A single-player, top-down pixel-art zombie-apocalypse survival game for the brow
 
 ## Current build
 
-**Prototype 0.4 — Living World & Settlement Survival Overhaul.** The game is a self-contained HTML5 Canvas project. Open `index.html` in a modern browser or serve the folder with a static HTTP server. No build step or external dependencies are required.
+**Prototype 0.5 — Powered Safehouse & Food Preservation Overhaul.** The game is a self-contained HTML5 Canvas project. Open `index.html` in a modern browser or serve the folder with a static HTTP server. No build step or external dependencies are required.
 
 ## Controls
 
