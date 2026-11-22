@@ -12,7 +12,8 @@ A single-player, top-down pixel-art zombie-apocalypse survival game for the brow
 | --- | --- |
 | WASD / Arrow keys | Move |
 | Shift | Sprint |
-| Mouse | Aim |
+| Mouse / pointer | Aim |
+| Touch / pointer | Tap to fire or inspect nearby evidence; use keyboard movement on supported devices |
 | Left click | Fire |
 | Space | Melee attack |
 | E | Interact with nearby settlement objects, scavenge, enter/search a building, or exit an interior |
@@ -34,19 +35,19 @@ A single-player, top-down pixel-art zombie-apocalypse survival game for the brow
 - Horde migration events and flanking/encirclement approach targets around the player.
 - Pistol combat, melee, ammunition, hit particles, and synthesized browser audio effects.
 - Dynamic clear, overcast, rain, and fog weather states with screen-space rain/fog rendering.
-- Hunger and thirst drain over time; starvation and dehydration damage health. Eat canned/cooked food and drink bottled or collected water.
+- Hunger and thirst drain over time; starvation and dehydration damage health. Eat canned/cooked food and drink bottled water or boiled rainwater.
 - Settlement construction: barricades, fences, gates, snares, storage crates, generators, rain barrels, farm plots, campfires, bedrolls, work tables, and chairs.
 - Defenses block movement and have durability; alerted walkers can converge on and break barricades, fences, and gates.
 - Storage containers allow one-item-at-a-time depositing and withdrawal. Generator fuel powers a larger nearby night-visibility radius.
-- Rain barrels collect water during storms. Farm plots grow crops over time, faster in rain, and can be harvested.
-- Crafting for planks, prepared meals, and snare materials; campfires heat canned food or cook raw meat.
+- Rain barrels collect untreated rainwater during storms. Use a campfire to boil it before drinking. Farm plots grow crops over time, faster in rain, and can be harvested.
+- Crafting for planks, prepared meals, and usable snare kits. Planks are required for wooden construction; campfires boil rainwater, heat canned food, and cook raw meat.
 - Clickable abandoned belongings provide short environmental-story fragments; blood pools and trails mark disturbing scenes.
 - Time-shifting building shadows, tree shadows, ambient darkness, and reduced night visibility. Walkers see farther and move faster at night.
 - Settlement objects, fuel/water/storage state, farming progress, belongings, blood marks, hunger, and thirst persist in local saves.
 
 ## Current limitations
 
-This is an actively evolving prototype. The sprite sheets are dedicated pixel-art SVG atlases generated for the game, not hand-painted high-resolution raster sheets. Interiors currently use a shared room layout with a searchable container rather than unique floor plans for each building. Equipment slots and item effects are a foundation for deeper gear statistics, durability, clothing protection, and capacity rules. The backpack slot remains a placeholder rather than a capacity system. Storage interaction currently moves one item per interaction. Farming is an abstract growth timer rather than a full soil, crop-rotation, and irrigation simulation. Rainwater is collected but purification is not yet implemented. Generator power is represented by a local night-visibility radius rather than a full electrical grid. Audio is synthesized through Web Audio rather than recorded asset files. Hordes use lightweight migration and surround-target steering rather than full navigation meshes or persistent off-screen simulation.
+This is an actively evolving prototype. The sprite sheets are dedicated pixel-art SVG atlases generated for the game, not hand-painted high-resolution raster sheets. Interiors currently use a shared room layout with a searchable container rather than unique floor plans for each building. Equipment slots and item effects are a foundation for deeper gear statistics, durability, clothing protection, and capacity rules. The backpack slot remains a placeholder rather than a capacity system. Storage interaction currently moves one item per interaction. Farming is an abstract growth timer rather than a full soil, crop-rotation, and irrigation simulation. Rainwater boiling is implemented at campfires; more advanced filtration and water-source simulation remain future work. Generator power is represented by a local night-visibility radius rather than a full electrical grid. Audio is synthesized through Web Audio rather than recorded asset files. Hordes use lightweight migration and surround-target steering rather than full navigation meshes or persistent off-screen simulation.
 
 ## Project direction
 
