@@ -4,7 +4,7 @@ A single-player, top-down pixel-art zombie-apocalypse survival game for the brow
 
 ## Current build
 
-**Prototype 0.1** is a self-contained HTML5 Canvas game. No build step or external dependencies are required.
+**Prototype 0.2** is a self-contained HTML5 Canvas game. No build step or external dependencies are required.
 
 ### Run locally
 
@@ -23,21 +23,22 @@ Open `index.html` in a modern desktop browser, or serve this folder with any sta
 | R | Reload |
 | Escape | Pause / resume |
 
-### Implemented foundation
+### Implemented systems
 
-- Scrollable open-world county map
-- Pixel-style top-down rendering
-- Player movement, aiming, sprinting, health and stamina
-- Walkers with wandering, hearing/noise investigation, pursuit and melee attacks
-- Firearm and melee combat
-- Ammunition, reloads, loot and scavenging
-- Searchable buildings
-- Day/night lighting
-- Local browser save data via `localStorage`
+- Large, scrollable county map with layered grass, road markings, environmental debris, vegetation, and detailed building exteriors
+- Animated top-down pixel-character and walker movement cycles
+- Player movement, aiming, sprinting, health, stamina, combat, and reloads
+- Walkers with field-of-view vision checks and building line-of-sight obstruction
+- Hearing-based sound investigation for gunshots, sprinting footsteps, and nearby activity
+- Walker states for wandering, investigating, searching last-known locations, and pursuing
+- Nearby walkers can be alerted and drawn toward disturbances
+- Basic steering recovery when walkers encounter obstacles
+- Ammunition, scavenging, searchable buildings, medical supplies, and local save data
+- Day/night lighting and player-centered visibility
 
 ### Current limitations
 
-This is an early gameplay foundation, not the finished game. Art is currently drawn from simple pixel primitives; building interiors, a full inventory UI, crafting, vehicles, survivor NPCs, advanced horde simulation, audio, and robust save slots are planned for later phases.
+This is an evolving gameplay prototype, not the finished game. Character art is currently rendered from custom pixel primitives rather than imported sprite-sheet assets. Building interiors, a full inventory/equipment UI, crafting, vehicles, survivor NPCs, advanced navigation/pathfinding, audio assets, and robust save slots remain planned.
 
 ## Project direction
 
@@ -45,7 +46,7 @@ This is an early gameplay foundation, not the finished game. Art is currently dr
 - Large interconnected open world
 - Single-player first
 - Survival, scavenging, weapons, crafting and settlements
-- More advanced walker behavior and dynamic hordes
+- Believable walkers and dynamic hordes
 - Persistent player and world progression
 
 The project is an original zombie-survival game inspired by the atmosphere and survival tension of the genre.
