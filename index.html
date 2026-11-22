@@ -59,7 +59,7 @@ function enterBuilding(b){interior=b;player.x=b.x+b.w/2;player.y=b.y+b.h/2;playS
 function leaveBuilding(){if(interior){player.x=interior.door.x;player.y=interior.door.y+24;interior=null;playSound('door');toast('You step outside.')}}
 function updateWeather(dt){weatherTimer-=dt;if(weatherTimer<=0){weatherTimer=rnd(80,170);weather=['clear','overcast','rain','fog'][ri(0,3)]}if(weather==='rain')for(let i=0;i<5;i++)weatherParticles.push({x:rnd(0,vw),y:-5,v:rnd(260,420)});for(let i=weatherParticles.length-1;i>=0;i--){const p=weatherParticles[i];p.y+=p.v*dt;p.x-=p.v*.12*dt;if(p.y>vh)weatherParticles.splice(i,1)}document.querySelector('#weatherTag').textContent=weather.toUpperCase()}
 function drawWeather(){if(weather==='overcast'||weather==='fog'){ctx.fillStyle=weather==='fog'?'#b8c1b52c':'#65708020';ctx.fillRect(0,0,vw,vh)}if(weather==='fog'){ctx.fillStyle='#b8c1b522';ctx.fillRect(0,vh*.25,vw,vh*.5)}if(weather==='rain'){ctx.strokeStyle='#aebdc866';ctx.beginPath();for(const p of weatherParticles){ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-4,p.y+12)}ctx.stroke()}}
-function drawInterior(){if(!interior)return;const b=interior;ctx.fillStyle='#11150f';ctx.fillRect(0,0,vw,vh);const sc=Math.min((vw-40)/b.w,(vh-70)/b.h),ox=(vw-b.w*sc)/2,oy=(vh-b.h*sc)/2;ctx.save();ctx.translate(ox,oy);ctx.scale(sc,sc);ctx.fillStyle='#756c57';ctx.fillRect(0,0,b.w,b.h);ctx.fillStyle='#5c5748';ctx.fillRect(8,8,b.w-16,b.h-16);ctx.strokeStyle='#887e65';for(let y=18;y<b.h;y+=18){ctx.beginPath();ctx.moveTo(8,y);ctx.lineTo(b.w-8,y);ctx.stroke()}for(const f of [[18,18,36,24],[b.w-58,20,38,28],[18,b.h-48,44,28],[b.w-55,b.h-43,36,25]]){ctx.fillStyle='#49483b';ctx.fillRect(...f);ctx.strokeStyle='#252a22';ctx.strokeRect(...f)}ctx.fillStyle='#b18a51';ctx.fillRect(b.w/2-12,b.h/2-9,24,18);ctx.fillStyle='#e4dcc5';ctx.font='12px monospace';ctx.fillText('SEARCHABLE CRATE · E',12,b.h-12);ctx.fillText('EXIT THROUGH BOTTOM DOOR · E',12,22);ctx.restore()}
+function drawInterior(){if(!interior)return;const b=interior;ctx.fillStyle='#11150f';ctx.fillRect(0,0,vw,vh);const sc=Math.min((vw-40)/b.w,(vh-70)/b.h),ox=(vw-b.w*sc)/2,oy=(vh-b.h*sc)/2;ctx.save();ctx.translate(ox,oy);ctx.scale(sc,sc);ctx.fillStyle='#756c57';ctx.fillRect(0,0,b.w,b.h);ctx.fillStyle='#5c5748';ctx.fillRect(8,8,b.w-16,b.h-16);ctx.strokeStyle='#887e65';for(let y=18;y<b.h;y+=18){ctx.beginPath();ctx.moveTo(8,y);ctx.lineTo(b.w-8,y);ctx.stroke()}for(const f of [[18,18,36,24],[b.w-58,20,38,28],[18,b.h-48,44,28],[b.w-55,b.h-43,36,25]]){ctx.fillStyle='#49483b';ctx.fillRect(...f);ctx.strokeStyle='#252a22';ctx.strokeRect(...f)}ctx.fillStyle='#b18a51';ctx.fillRect(b.w/2-12,b.h/2-9,24,18);ctx.fillStyle='#e4dcc5';ctx.font='12px monospace';ctx.fillText('SEARCHABLE CRATE · E',12,b.h-12);ctx.fillText('EXIT THROUGH BOTTOM DOOR · E',12,22);ctx.fillStyle='#536e55';ctx.fillRect(b.w/2-7,b.h/2+8,14,18);ctx.fillStyle='#c9a77e';ctx.fillRect(b.w/2-5,b.h/2+1,10,8);ctx.restore()}
 function seeded(n){let x=Math.sin(n*127.1+worldSeed*311.7)*43758.5453;return x-Math.floor(x)}
 function makeWalker(x,y){return{x,y,r:9,hp:3,speed:rnd(25,37),state:'wander',tx:x,ty:y,lastX:x,lastY:y,alert:0,attack:0,anim:rnd(0,10),variant:ri(0,4),facing:rnd(-Math.PI,Math.PI),turn:0,search:0,groupCooldown:0,stagger:0}}
 function addBuilding(x,y,w,h,type='house',rotation=0){buildings.push({x,y,w,h,type,rotation,searched:false,door:{x:x+w/2,y:y+h+5},windows:ri(2,4),roofTone:ri(0,2)})}
@@ -107,7 +107,7 @@ function updateAI(z,dt){
  if(d<22&&z.attack<=0&&player.invuln<=0){player.hp=Math.max(0,player.hp-ri(6,10));player.invuln=.85;z.attack=1.15;z.state='chase';z.alert=4;particlesAt(player.x,player.y,'#a84940',6);hud();if(player.hp<=0){dead=true;toast('You were overwhelmed. Your story ends here.');save()}}
 }
 function update(dt){
- if(bagOpen)return;elapsed+=dt;updateWeather(dt);player.weaponKick=Math.max(0,(player.weaponKick||0)-dt);player.meleeSwing=Math.max(0,(player.meleeSwing||0)-dt);if(interior&&keys.e){keys.e=false;leaveBuilding();return}clock=(7.1+elapsed/110)%24;fireCd=Math.max(0,fireCd-dt);meleeCd=Math.max(0,meleeCd-dt);player.invuln=Math.max(0,player.invuln-dt);
+ if(bagOpen)return;elapsed+=dt;updateWeather(dt);player.weaponKick=Math.max(0,(player.weaponKick||0)-dt);player.meleeSwing=Math.max(0,(player.meleeSwing||0)-dt);if(interior&&keys.e){keys.e=false;if(!interior.roomSearched){interior.roomSearched=true;const k=ri(0,3);if(k===0)player.inventory.Bandage++;else if(k===1)player.inventory['Canned food']++;else if(k===2)player.inventory['9mm magazines']++;else player.inventory.Scrap++;renderBag();toast('You searched a container and recovered supplies.')}else leaveBuilding();return}clock=(7.1+elapsed/110)%24;fireCd=Math.max(0,fireCd-dt);meleeCd=Math.max(0,meleeCd-dt);player.invuln=Math.max(0,player.invuln-dt);
  let dx=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),dy=(keys.s||keys.arrowdown?1:0)-(keys.w||keys.arrowup?1:0),len=Math.hypot(dx,dy)||1;dx/=len;dy/=len;
  const moving=!!(dx||dy),sprint=!!keys.shift&&player.st>0&&moving,speed=sprint?205:132;
  if(sprint)player.st=Math.max(0,player.st-30*dt);else player.st=Math.min(100,player.st+16*dt);
@@ -154,16 +154,23 @@ function drawBuildings(){for(const b of buildings){if(b.x>camera.x+vw||b.x+b.w<c
  if(b.searched){box(b.x+b.w-19,b.y+8,9,9,'#566044');box(b.x+b.w-17,b.y+10,5,5,'#a2a36d')}
  }}
 function drawLoot(){for(const l of loot){if(l.taken||l.x<camera.x-20||l.x>camera.x+vw+20||l.y<camera.y-20||l.y>camera.y+vh+20)continue;box(l.x-7,l.y-5,14,11,'#292d24');box(l.x-6,l.y-7,12,10,l.type==='medical'?'#b6bca9':l.type==='ammo'?'#b99b59':'#7f9161');box(l.x-3,l.y-4,6,4,'#434c39');box(l.x-5,l.y-8,10,2,'#c1b48a')}}
-function drawWalker(z){const moving=z.state!=='search'||dist(z,{x:z.tx,y:z.ty})>12;const frame=moving?Math.floor(z.anim*7)%4:0,bob=[0,1,0,-1][frame],x=Math.round(z.x),y=Math.round(z.y);box(x-8,y+7,16,5,'#20251e');ctx.save();ctx.translate(x,y+bob);ctx.rotate(z.facing+Math.PI/2);
- const skin=['#8b9076','#8c7867','#9b8c78','#777f69','#a18d79'][z.variant],shirt=['#596c50','#6d5147','#5b6267','#75654b','#46595a'][z.variant],pants=['#343a32','#3e3934','#3b4140','#3c342e','#333b36'][z.variant];
- // alternating legs and dragging gait
- const swing=[-2,0,2,0][frame];box(-5,4,4,8+swing,pants);box(2,4,4,8-swing,pants);box(-6,10+swing,6,3,'#292b25');box(1,10-swing,6,3,'#292b25');
- box(-6,-5,12,12,shirt);box(-8,-3,3,10,skin);box(5,-4,3,10,skin);box(-5,-11,10,8,skin);box(-4,-13,8,4,skin);
- box(-3,-8,2,2,'#9d5147');box(2,-8,2,2,'#9d5147');box(-2,-3,4,2,'#4a3b32');
- if(z.variant===1)box(-5,-12,10,3,'#403c34');if(z.variant===3)box(3,-1,3,5,'#9b4b42');
- ctx.restore();
+const survivorSheet=new Image(),walkerSheet=new Image();
+survivorSheet.src='assets/sprites/survivor-sheet.svg';walkerSheet.src='assets/sprites/walker-sheet.svg';
+const drawWalkerPrimitives=drawWalker,drawPlayerPrimitives=drawPlayer;
+function sheetDirection(a){return ((Math.round((a+Math.PI/2)/(Math.PI/2))%4)+4)%4}
+function drawWalker(z){
+ if(!walkerSheet.complete||!walkerSheet.naturalWidth){drawWalkerPrimitives(z);return}
+ const frame=Math.floor(z.anim*7)%4,dir=sheetDirection(z.facing);
+ box(z.x-8,z.y+8,16,4,'#20251e');
+ ctx.drawImage(walkerSheet,frame*32,dir*32,32,32,Math.round(z.x-16),Math.round(z.y-16),32,32);
 }
-function drawPlayer(){const x=player.x,y=player.y,frame=Math.floor(player.walk*1.8)%4,bob=player.walk?([0,1,0,-1][frame]):0,swing=player.walk?[-2,0,2,0][frame]:0;box(x-8,y+9,17,5,'#1b211a');ctx.save();ctx.translate(x,y+bob);ctx.rotate(player.angle+Math.PI/2);box(-5,4,4,8+swing,'#343b35');box(2,4,4,8-swing,'#343b35');box(-6,10+swing,6,3,'#242923');box(1,10-swing,6,3,'#242923');box(-7,-5,14,12,player.invuln>0?'#b6a17b':'#536e55');box(-8,-3,3,9,'#b99f7c');box(5,-3,3,9,'#b99f7c');box(-5,-12,10,8,'#c4a982');box(-5,-14,10,4,'#403d32');box(5,-2,15,4,'#373a31');box(17-(player.weaponKick||0)*22,-1,4,2,'#b7a16c');if(player.meleeSwing>0){ctx.rotate(-player.meleeSwing*3);box(10,-8,18,3,'#aaa18a')}ctx.restore()}
+function drawPlayer(){
+ if(!survivorSheet.complete||!survivorSheet.naturalWidth){drawPlayerPrimitives();return}
+ const frame=player.walk?Math.floor(player.walk*1.8)%4:0,dir=sheetDirection(player.angle);
+ box(player.x-8,player.y+9,17,5,'#1b211a');
+ ctx.drawImage(survivorSheet,frame*32,dir*32,32,32,Math.round(player.x-16-(player.weaponKick||0)*8),Math.round(player.y-16),32,32);
+ if(player.meleeSwing>0){ctx.save();ctx.translate(player.x,player.y);ctx.rotate(-player.meleeSwing*3);box(10,-8,18,3,'#aaa18a');ctx.restore()}
+}
 function drawLighting(){const dark=clock<6.3?.58:clock>19?.65:clock<8?.58-(clock-6.3)*.24:clock>17?(clock-17)*.22:0;if(dark<=0)return;ctx.fillStyle='rgba(7,12,18,'+dark+')';ctx.fillRect(0,0,vw,vh);ctx.globalCompositeOperation='destination-out';const px=player.x-camera.x,py=player.y-camera.y,g=ctx.createRadialGradient(px,py,35,px,py,275);g.addColorStop(0,'rgba(0,0,0,.98)');g.addColorStop(.6,'rgba(0,0,0,.55)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(px,py,275,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation='source-over'}
 function draw(){ctx.setTransform(dpr,0,0,dpr,0,0);if(interior){drawInterior();drawWeather();return}ctx.save();ctx.translate(-Math.floor(camera.x),-Math.floor(camera.y));drawGround();drawTrees();drawBuildings();drawLoot();for(const b of bullets)box(b.x-2,b.y-2,5,5,'#f1d28a');for(const z of walkers)drawWalker(z);drawPlayer();for(const p of particles)box(p.x,p.y,p.size,p.size,p.color);ctx.restore();drawLighting();drawWeather();
  ctx.strokeStyle='#e9dfc5bb';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(mouse.x-5,mouse.y);ctx.lineTo(mouse.x+5,mouse.y);ctx.moveTo(mouse.x,mouse.y-5);ctx.lineTo(mouse.x,mouse.y+5);ctx.stroke();
