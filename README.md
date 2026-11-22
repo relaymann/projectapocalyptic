@@ -35,7 +35,7 @@ A single-player, top-down pixel-art zombie-apocalypse survival game for the brow
 - Pistol combat, melee, ammunition, hit particles, and synthesized browser audio effects.
 - Dynamic clear, overcast, rain, and fog weather states with screen-space rain/fog rendering.
 - Hunger and thirst drain over time; starvation and dehydration damage health. Eat canned/cooked food and drink bottled or collected water.
-- Settlement construction: barricades, fences, gates, snares, storage crates, generators, rain barrels, farm plots, campfires, and bedrolls.
+- Settlement construction: barricades, fences, gates, snares, storage crates, generators, rain barrels, farm plots, campfires, bedrolls, work tables, and chairs.
 - Defenses block movement and have durability; alerted walkers can converge on and break barricades, fences, and gates.
 - Storage containers allow one-item-at-a-time depositing and withdrawal. Generator fuel powers a larger nearby night-visibility radius.
 - Rain barrels collect water during storms. Farm plots grow crops over time, faster in rain, and can be harvested.
