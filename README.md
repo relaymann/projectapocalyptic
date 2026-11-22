@@ -60,6 +60,8 @@ A single-player, top-down pixel-art zombie-apocalypse survival game for the brow
 - Clickable abandoned belongings provide short environmental-story fragments; blood pools and trails mark disturbing scenes.
 - Time-shifting building shadows, tree shadows, ambient darkness, and reduced night visibility. Walkers see farther and move faster at night.
 - Settlement objects, fuel/water/storage state, farming progress, belongings, blood marks, hunger, and thirst persist in local saves.
+- Settlement electrical control console: a master breaker disconnects safehouse circuits, and every building has an independently switchable interior/exterior light circuit. The live management dashboard reports estimated electrical demand, grid/local source status, battery charge, total water reserves, stored food, and defensive integrity.
+- Buildable 100-unit water storage tanks with visible fill gauges. Tanks transfer water from connected powered pumps through the pipe network, can supply connected building taps, and preserve their levels in saves.
 
 ## Current limitations
 
