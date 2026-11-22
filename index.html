@@ -114,7 +114,7 @@ function update(dt){
 }
 function box(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.max(1,Math.round(w)),Math.max(1,Math.round(h)))}
 function drawGround(){
- box(0,0,vw,vh,'#29372b');
+ box(camera.x,camera.y,vw,vh,'#29372b');
  const x0=Math.floor(camera.x/64)*64,y0=Math.floor(camera.y/64)*64;
  for(let x=x0;x<camera.x+vw+64;x+=64)for(let y=y0;y<camera.y+vh+64;y+=64){const n=seeded(Math.floor(x/64)*97+Math.floor(y/64)*193);box(x+8+n*35,y+10,2,2,'#354631');box(x+38,y+39+n*15,3,2,'#243326');if(n>.72)box(x+19,y+49,2,4,'#46523a')}
  // paved county roads with broken shoulders and lane paint
